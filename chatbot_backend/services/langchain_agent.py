@@ -2,20 +2,14 @@
 
 import os
 import traceback
-from dotenv import load_dotenv
+from config import HUGGINGFACEHUB_API_TOKEN, VECTOR_STORE_DIR
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
 from langchain_community.vectorstores.faiss import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_huggingface import HuggingFaceEndpoint
 
-# --- Load Environment Variables ---
-load_dotenv()
-HUGGINGFACEHUB_API_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
-VECTOR_STORE_DIR = os.getenv("VECTOR_STORE_DIR", "vector_index")
-
-if not HUGGINGFACEHUB_API_TOKEN:
-    raise ValueError("❌ HUGGINGFACEHUB_API_TOKEN is not set in the environment.")
+# VECTOR_STORE_DIR is already configured via config
 
 # --- Initialize LLM from Hugging Face ---
 llm = HuggingFaceEndpoint(
